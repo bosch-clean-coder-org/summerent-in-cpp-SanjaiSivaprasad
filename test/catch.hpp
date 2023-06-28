@@ -477,6 +477,12 @@ namespace Catch {
 #  define INTERNAL_CATCH_UNIQUE_NAME( name ) INTERNAL_CATCH_UNIQUE_NAME_LINE( name, __LINE__ )
 #endif
 
+#if (MINSIGSTKSZ <= 32768) 
+   #define sigStackSize  32768
+#else
+   #define sigStackSize  MINSIGSTKSZ
+#endif
+
 #include <iosfwd>
 #include <string>
 #include <cstdint>
@@ -10814,12 +10820,6 @@ PVOID FatalConditionHandler::exceptionHandlerHandle = nullptr;
 } // namespace Catch
 
 #elif defined( CATCH_CONFIG_POSIX_SIGNALS )
-
-#if (MINSIGSTKSZ <= 32768) 
-   #define sigStackSize  32768
-#else
-   #define sigStackSize  MINSIGSTKSZ
-#endif
 
 namespace Catch {
 
