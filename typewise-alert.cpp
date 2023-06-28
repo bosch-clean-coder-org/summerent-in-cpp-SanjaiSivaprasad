@@ -22,8 +22,8 @@ BreachType classifyTemperatureBreach(
   };
   if(coolingType < 3) {
     int coolingIndex = static_cast<int>(coolingType);
-    double lowerLimit = coolingLimits[coolingIndex][0];
-    double upperLimit = coolingLimits[coolingIndex][1];
+    lowerLimit = coolingLimits[coolingIndex][0];
+    upperLimit = coolingLimits[coolingIndex][1];
   }
   return inferBreach(temperatureInC, lowerLimit, upperLimit);
 }
