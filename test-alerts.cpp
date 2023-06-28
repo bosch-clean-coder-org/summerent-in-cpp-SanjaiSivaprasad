@@ -60,8 +60,16 @@ TEST_CASE("Test case for checking and Alert to controller") {
   checkAndAlert(TO_CONTROLLER, batterychar[0], 10);
 }
 
-TEST_CASE("Test case for checking and Alert by sending Email") {
+TEST_CASE("Test case for checking breachType as Normal and Alert by sending Email") {
   checkAndAlert(TO_EMAIL, batterychar[1], 20);
+}
+
+TEST_CASE("Test case for checking breachType as Low and Alert by sending Email") {
+  checkAndAlert(TO_EMAIL, batterychar[1], -5);
+}
+
+TEST_CASE("Test case for checking breachType as High and Alert by sending Email") {
+  checkAndAlert(TO_EMAIL, batterychar[1], 75);
 }
 
 
