@@ -10815,7 +10815,7 @@ PVOID FatalConditionHandler::exceptionHandlerHandle = nullptr;
 
 #elif defined( CATCH_CONFIG_POSIX_SIGNALS )
 
-#if(MINSIGSTKSZ <= 32768) 
+#if (MINSIGSTKSZ <= 32768) 
    #define sigStackSize  32768
 #else
    #define sigStackSize  MINSIGSTKSZ
