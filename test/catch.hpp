@@ -10822,9 +10822,11 @@ namespace Catch {
         const char* name;
     };
 
-    // 32kb for the alternate stack seems to be sufficient. However, this value
-    // is experimentally determined, so that's not guaranteed.
-    static constexpr std::size_t sigStackSize = 32768;
+    #if(MINSIGSTKSZ <= 32768) 
+	    #define sigStackSize  32768
+    #else
+	    #define sigStackSize  MINSIGSTKSZ
+    #endif
 
     static SignalDefs signalDefs[] = {
         { SIGINT,  "SIGINT - Terminal interrupt signal" },
