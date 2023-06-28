@@ -10815,18 +10815,18 @@ PVOID FatalConditionHandler::exceptionHandlerHandle = nullptr;
 
 #elif defined( CATCH_CONFIG_POSIX_SIGNALS )
 
+#if(MINSIGSTKSZ <= 32768) 
+   #define sigStackSize  32768
+#else
+   #define sigStackSize  MINSIGSTKSZ
+#endif
+
 namespace Catch {
 
     struct SignalDefs {
         int id;
         const char* name;
     };
-
-    #if(MINSIGSTKSZ <= 32768) 
-	    #define sigStackSize  32768
-    #else
-	    #define sigStackSize  MINSIGSTKSZ
-    #endif
 
     static SignalDefs signalDefs[] = {
         { SIGINT,  "SIGINT - Terminal interrupt signal" },
@@ -10843,7 +10843,7 @@ namespace Catch {
             if (sig == def.id) {
                 name = def.name;
                 break;
-            }
+        }
         }
         reset();
         reportFatal(name);
