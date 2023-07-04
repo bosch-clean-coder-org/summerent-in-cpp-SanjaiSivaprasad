@@ -477,6 +477,12 @@ namespace Catch {
 #  define INTERNAL_CATCH_UNIQUE_NAME( name ) INTERNAL_CATCH_UNIQUE_NAME_LINE( name, __LINE__ )
 #endif
 
+#if (MINSIGSTKSZ <= 32768) 
+   #define sigStackSize  32768
+#else
+   #define sigStackSize  MINSIGSTKSZ
+#endif
+
 #include <iosfwd>
 #include <string>
 #include <cstdint>
@@ -10822,10 +10828,6 @@ namespace Catch {
         const char* name;
     };
 
-    // 32kb for the alternate stack seems to be sufficient. However, this value
-    // is experimentally determined, so that's not guaranteed.
-    static constexpr std::size_t sigStackSize = 32768 >= MINSIGSTKSZ ? 32768 : MINSIGSTKSZ;
-
     static SignalDefs signalDefs[] = {
         { SIGINT,  "SIGINT - Terminal interrupt signal" },
         { SIGILL,  "SIGILL - Illegal instruction signal" },
@@ -10841,7 +10843,7 @@ namespace Catch {
             if (sig == def.id) {
                 name = def.name;
                 break;
-            }
+        }
         }
         reset();
         reportFatal(name);
