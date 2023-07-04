@@ -3,55 +3,68 @@
 #include "test/catch.hpp"
 #include "typewise-alert.h"
 
-TEST_CASE("CheckForBreachType_inferBreachWithValueBelowLowerlimits_expectTOO_LOW") {
+TEST_CASE("CheckForBreachType_inferBreachWithValueBelowLowerlimit_expectTOO_LOW")
+{
   REQUIRE(inferBreach(12, 20, 30) == TOO_LOW);
 }
 
-TEST_CASE("infers the breach according to upper limits") {
+TEST_CASE("CheckForBreachType_inferBreachWithValueAboveUpperlimit_expectTOO_HIGH")
+{
   REQUIRE(inferBreach(45, 20, 30) == TOO_HIGH);
 }
 
-TEST_CASE("infers the breach according to normal") {
+TEST_CASE("CheckForBreachType_inferBreachWithValueWithinLowerAndUpperlimit_expectNORMAL")
+{
   REQUIRE(inferBreach(75, 50, 100) == NORMAL);
 }
 
-TEST_CASE("infers the breach according to equal limits") {
+TEST_CASE("CheckForBreachType_inferBreachWithValueEqualstoLowerLimit_expectNORMAL")
+{
   REQUIRE(inferBreach(50, 50, 100) == NORMAL);
 }
 
-TEST_CASE("Classify Temperature Breach for Passive Cooling TOO_LOW temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsPassiveAndTempBelowLowerLimit_expectTOO_LOW")
+{
 	  REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, -10) == TOO_LOW);
 }
 
-TEST_CASE("Classify Temperature Breach for Passive Cooling TOO_HIGH temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsPassiveAndTempAboveUpperLimit_expectTOO_HIGH")
+{
   REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, 50) == TOO_HIGH);
 }
 
-TEST_CASE("Classify Temperature Breach for Passive Cooling NORMAL temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsPassiveAndTempWithinLimits_expectNORMAL")
+{
   REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, 20) == NORMAL);
 }
 
-TEST_CASE("Classify Temperature Breach for HiActive Cooling TOO_LOW temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsHiActiveAndTempBelowLowerLimit_expectTOO_LOW")
+{
 	  REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, -10) == TOO_LOW);
 }
 
-TEST_CASE("Classify Temperature Breach for HiActive Cooling TOO_HIGH temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsHiActiveAndTempAboveUpperLimit_expectTOO_HIGH")
+{
   REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, 100) == TOO_HIGH);
 }
 
-TEST_CASE("Classify Temperature Breach for HiActive Cooling NORMAL temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsHiActiveAndTempWithinLimits_expectNORMAL")
+{
   REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, 40) == NORMAL);
 }
 
-TEST_CASE("Classify Temperature Breach for MediumActive Cooling TOO_LOW temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsMedActiveAndTempBelowLowerLimit_expectTOO_LOW")
+{
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, -5) == TOO_LOW);
 }
 
-TEST_CASE("Classify Temperature Breach for MediumActive Cooling TOO_HIGH temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsMedActiveAndTempAboveUpperLimit_expectTOO_HIGH")
+{
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 75) == TOO_HIGH);
 }
 
-TEST_CASE("Classify Temperature Breach for MediumActive Cooling NORMAL temperature") {
+TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsMedActiveAndTempWithinLimits_expectNORMAL")
+{
   REQUIRE(classifyTemperatureBreach(MED_ACTIVE_COOLING, 30) == NORMAL);
 }
 
