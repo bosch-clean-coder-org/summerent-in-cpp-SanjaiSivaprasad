@@ -25,7 +25,7 @@ TEST_CASE("CheckForBreachType_inferBreachWithValueEqualstoLowerLimit_expectNORMA
 
 TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsPassiveAndTempBelowLowerLimit_expectTOO_LOW")
 {
-	  REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, -10) == TOO_LOW);
+  REQUIRE(classifyTemperatureBreach(PASSIVE_COOLING, -10) == TOO_LOW);
 }
 
 TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsPassiveAndTempAboveUpperLimit_expectTOO_HIGH")
@@ -40,7 +40,7 @@ TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsPassiveA
 
 TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsHiActiveAndTempBelowLowerLimit_expectTOO_LOW")
 {
-	  REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, -10) == TOO_LOW);
+  REQUIRE(classifyTemperatureBreach(HI_ACTIVE_COOLING, -10) == TOO_LOW);
 }
 
 TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsHiActiveAndTempAboveUpperLimit_expectTOO_HIGH")
@@ -69,19 +69,23 @@ TEST_CASE("CheckForBreachType_ClassifyTemperatureBreachWithCoolingTypeAsMedActiv
 }
 
 BatteryCharacter batterychar[3] = { {PASSIVE_COOLING,"window"}, {HI_ACTIVE_COOLING,"fan"}, {MED_ACTIVE_COOLING,"liquidCooling"} };
-TEST_CASE("Test case for checking and Alert to controller") {
+TEST_CASE("CheckForSendAlert_checkAndAlertWithBatteryTypeAsPassiveAndTempWithinLimits_expectAlertBysendToController")
+{
   checkAndAlert(TO_CONTROLLER, batterychar[0], 10);
 }
 
-TEST_CASE("Test case for checking breachType as Normal and Alert by sending Email") {
+TEST_CASE("CheckForSendAlert_checkAndAlertWithBatteryTypeAsHiActiveAndTempWithinLimits_expectBreachTypeAsNormalAndAlertBysendToEmail")
+{
   checkAndAlert(TO_EMAIL, batterychar[1], 20);
 }
 
-TEST_CASE("Test case for checking breachType as Low and Alert by sending Email") {
+TEST_CASE("CheckForSendAlert_checkAndAlertWithBatteryTypeAsHiActiveAndTempBelowLowerLimits_expectBreachTypeAsLowAndAlertBysendToEmail")
+{
   checkAndAlert(TO_EMAIL, batterychar[1], -5);
 }
 
-TEST_CASE("Test case for checking breachType as High and Alert by sending Email") {
+TEST_CASE("CheckForSendAlert_checkAndAlertWithBatteryTypeAsHiActiveAndTempAoveUpperLimits_expectBreachTypeAsHighAndAlertBysendToEmail")
+{
   checkAndAlert(TO_EMAIL, batterychar[1], 75);
 }
 
